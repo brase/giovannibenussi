@@ -51,8 +51,42 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         context: {
           id: post.id,
           previousPostId,
-          nextPostId,
-        },
+          nextPostId
+        }
+      })
+    })
+
+    const result = await graphql(`
+      query {
+        allMdx {
+          edges {
+            node {
+              id
+              fields {
+                slug
+              }
+            }
+          }
+        }
+      }
+    `)
+
+    if (result.errors) {
+      reporter.panicOnBuild('🚨  ERROR: Loading "createPages" query')
+    }
+
+    const mdxPosts = result.data.allMdx.edges
+
+    mdxPosts.forEach(({ node }) => {
+      createPage({
+        // This is the slug you created before
+        // (or `node.frontmatter.slug`)
+        path: node.fields.slug,
+        // This component will wrap our MDX content
+        component: path.resolve(`./src/components/posts-page-layout.js`),
+        // You can use the values in this context in
+        // our page layout component
+        context: { id: node.id }
       })
     })
   }
@@ -67,7 +101,16 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     createNodeField({
       name: `slug`,
       node,
-      value,
+      value
+    })
+  }
+
+  if (node.internal.type === "Mdx") {
+    const value = createFilePath({ node, getNode })
+    createNodeField({
+      name: "slug",
+      node,
+      value: `/blog${value}`
     })
   }
 }
