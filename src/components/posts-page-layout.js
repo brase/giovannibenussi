@@ -5,11 +5,12 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import { Link } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import Bio from "../components/bio"
 
 const shortcodes = { Link } // Provide common components here
 
 export default function PageTemplate(props) {
-  const { data  } = props
+  const { data } = props
   const { mdx } = data
   const siteTitle = data?.site.siteMetadata.title || `Title`
 
@@ -19,10 +20,23 @@ export default function PageTemplate(props) {
         title={mdx.frontmatter.title}
         description={mdx.frontmatter.description || mdx.excerpt}
       />
-      <h1>{mdx.frontmatter.title}</h1>
-      <MDXProvider components={shortcodes}>
-        <MDXRenderer>{mdx.body}</MDXRenderer>
-      </MDXProvider>
+      <article
+        className="blog-post"
+        itemScope
+        itemType="http://schema.org/Article"
+      >
+        <header>
+          <h1 itemProp="headline">{mdx.frontmatter.title}</h1>
+          <p>{mdx.frontmatter.date}</p>
+        </header>
+        <MDXProvider components={shortcodes}>
+          <MDXRenderer>{mdx.body}</MDXRenderer>
+        </MDXProvider>
+        <hr />
+        <footer>
+          <Bio />
+        </footer>
+      </article>
     </Layout>
   )
 }
