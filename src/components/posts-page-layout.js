@@ -41,7 +41,7 @@ export default function PageTemplate(props) {
   )
 }
 
-export const pageQuery = graphql`
+export const query = graphql`
   query BlogPostQuery($id: String) {
     site {
       siteMetadata {
