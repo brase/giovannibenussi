@@ -1,0 +1,27 @@
+.wrapper {
+  font-family: sans-serif;
+  text-align: center;
+
+  display: grid;
+  grid-template-columns: 10rem;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.button {
+  background: #ebf4ff;
+  color: #667eea;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.button:hover {
+  background: #667eea;
+  color: #ebf4ff;
+}
+
+.button:active {
+  background: #7f9cf5;
+}
