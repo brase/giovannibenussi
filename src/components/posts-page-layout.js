@@ -10,7 +10,7 @@ import Bio from "../components/bio"
 const shortcodes = { Link } // Provide common components here
 
 export default function PageTemplate(props) {
-  const { data } = props
+  const { data, location } = props
   const { mdx } = data
   const siteTitle = data?.site.siteMetadata.title || `Title`
 
