@@ -1,3 +1,9 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
 /* CSS Custom Properties Definitions */
 
 :root {
@@ -121,6 +127,7 @@ h1 {
   font-weight: var(--fontWeight-black);
   font-size: var(--fontSize-6);
   color: var(--color-heading-black);
+  @apply text-indigo-500;
 }
 
 h2 {
@@ -202,6 +209,7 @@ blockquote {
   margin-right: var(--spacing-8);
   padding: var(--spacing-0) var(--spacing-0) var(--spacing-0) var(--spacing-6);
   border-left: var(--spacing-1) solid var(--color-primary);
+  @apply border-l-4 border-indigo-500;
   font-size: var(--fontSize-2);
   font-style: italic;
   margin-bottom: var(--spacing-8);
@@ -231,11 +239,13 @@ table thead tr th {
 
 a {
   color: var(--color-primary);
+  @apply text-indigo-500;
 }
 
 a:hover,
 a:focus {
   text-decoration: none;
+  @apply text-indigo-400;
 }
 
 /* Custom classes */
