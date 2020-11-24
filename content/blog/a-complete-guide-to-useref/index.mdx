@@ -3,19 +3,51 @@ title: A Complete Guide to useRef
 date: "2020-11-03T22:12:03.284Z"
 description: "Hello World"
 ---
-import Example from './Example'
-
-<Example />
+import OutsideVariable from './Examples/OutsideVariable'
+import OutsideVariableMultiple from './Examples/OutsideVariable/multiple'
+import OutsideVariableTest from './Examples/OutsideVariable/test'
+import RefButton from "./Examples/Buttons/RefButton"
+import AttachingToDomExample from './Examples/AttachingToDomExample'
+import Chat from '../Chat'
 
 ## What's useRef
 useRef allows you to keep a mutable value within a component, similar to useState or instance variables on a class, without triggering re-renders.
 
-<h1>{1 + 1}</h1>
 
-![Chinese Salty Egg](./salty_egg.jpg)
+### Why not just use a variable?
+You might wonder why not just use a simple variable as the example below:
+
+<OutsideVariableMultiple variable={1} />
+
+The code works. However, the problem arises when you have multiple instances of the same component like the example below. Try clicking just one of the buttons below and then click on re-render to see the result.
+
+<OutsideVariableMultiple variable={2} />
+
+As you were able to see, the clicks are not isolated. On the otherside, useRef values are completely isolated between components.
+In fact, you can notice that the clicks count from the previous example is updated if you click re-render!
+
+<OutsideVariableMultiple refs={2} />
 
 ## Difference with useState
 useState triggers a re-render everytime it's updated and useRef doesn't. In the following example I added two buttons: one updates its count with useRef and the other one with useState. You'll notice that clicking on the button with useRef doesn't trigger a re-render and thus, the view isn't updated. It will be only noticeable when you click the button that uses useState.
+
+<OutsideVariableMultiple refs={1} state={1} />
+
+## Attaching to DOM
+
+<Chat
+  messages={{
+'Today': [
+    { message:  'Hey React', side: 'right', time:'12:00' },
+    { message: "Hey, what's up?", side: 'left', time: '12:00'},
+    { message: "Could you give me a reference to this dom node?", side: 'right', time: '12:00' },
+    { message: "Sure, I assigned it to the 'current' property of your ref.", side: 'left', time:'12:00' },
+    { message: "Cool, thanks!", side: 'right', time:'12:00' },
+  ]}
+}
+ />
+
+<AttachingToDomExample />
 
 ## Difference with a variable
 - Refs to access DOM nodes
