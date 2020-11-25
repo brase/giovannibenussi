@@ -1,14 +1,13 @@
-import React, { useRef } from "react"
+import React, { useEffect, useRef } from "react"
 
 function AttachingToDomExample() {
   const inputRef = useRef()
 
-  return (
-    <div>
-      Name:{" "}
-      <input className="rounded border-2 border-gray-300" ref={inputRef} />
-    </div>
-  )
+  console.log("Render inputRef value:", inputRef)
+
+  useEffect(() => console.log("useEffect inputRef value:", inputRef))
+
+  return <input ref={inputRef} />
 }
 
 export default AttachingToDomExample
