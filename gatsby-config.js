@@ -12,6 +12,12 @@ module.exports = {
     },
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "G-KM87KM1KX1",
+      },
+    },
     `gatsby-plugin-postcss`,
     {
       resolve: "gatsby-plugin-react-svg",

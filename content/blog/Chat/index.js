@@ -17,7 +17,6 @@ const Read = () => (
 )
 
 const COLORS = ["text-blue-500", "text-red-500"]
-console.log("COLORS.length", "COLORS.length")
 
 const sumStringLetters = name =>
   name
