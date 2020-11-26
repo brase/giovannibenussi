@@ -9,6 +9,7 @@ import OutsideVariableTest from './Examples/OutsideVariable/test'
 import RefButton from "./Examples/Buttons/RefButton"
 import AttachingToDomExample from './Examples/AttachingToDomExample'
 import Chat from '../Chat'
+import UsePreviousExample from './Examples/UsePreviousExample'
 
 ## What's useRef
 `useRef` allows you to keep a mutable value within a component, similar to `useState` or instance variables on a class, without triggering re-renders.
@@ -32,7 +33,7 @@ This is how this component would look:
 <RefButton />
 
 As you can see it doesn't do anything. Let's add a bit more of magic so you can
-see what happens. Below is the exact same button with a button that
+see what happens. Below is the exact same button with another button that
 triggers a re-render:
 
 <OutsideVariableMultiple refs={1} displayType={false} />
@@ -44,7 +45,7 @@ You might wonder why not just use a simple variable as the example below:
 
 The code works. However, the problem arises when you have multiple instances of the same component like the example below. Try clicking just one of the buttons below and then click on re-render to see the result.
 
-<OutsideVariableMultiple variable={2} />
+<OutsideVariableMultiple variable={3} />
 
 As you were able to see, the clicks are not isolated. On the otherside, useRef values are completely isolated between components.
 In fact, you can notice that the clicks count from the previous example is updated if you click re-render!
@@ -128,10 +129,46 @@ As you can see, if you access the `inputRef` inside `useEffect` then you don't
 need to worry about it being `undefined` because React will assign it
 automatically for you.
 
+# Real World Use Cases for Refs
+
+Let's start with a simple real-world application for refs: `usePrevious`. This
+hook stores the previous value for a given state variable. Let's see it in
+action first:
+
+```jsx
+function UsePreviousExample() {
+  const [clicks, setClicks] = useState(0)
+  const previousClicks = usePrevious(clicks)
+
+  return (
+    <div>
+      <button onClick={() => setClicks(clicks + 1)}>
+        Clicks: {clicks} - Before: {previousClicks}
+      </button>
+    </div>
+  )
+}
+```
+
+Here's the output so you can play with it:
+
+<UsePreviousExample />
+
+You can notice that `previousClicks` stores the value for the previous render
+for a given variable. Here's its implementation:
+
+```jsx
+function usePrevious(value) {
+  const ref = useRef()
+  useEffect(() => {
+    ref.current = value
+  })
+  return ref.current
+}
+```
+
+
 ## Difference with a variable
-- Refs to access DOM nodes
-- Why not just use a variable?
-- Why not use `useState`?
 - Use cases for refs: usePrevious
 - Lazy Initialization
 - Conceptually, you can think of refs as similar to instance variables in a class. Unless you're doing lazy initialization, avoid setting refs during rendering - this can lead to surprising behavior. Instead, typically you want to modify refs in event handlers and effects.
