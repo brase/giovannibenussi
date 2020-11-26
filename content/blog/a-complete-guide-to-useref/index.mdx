@@ -13,6 +13,29 @@ import Chat from '../Chat'
 ## What's useRef
 `useRef` allows you to keep a mutable value within a component, similar to `useState` or instance variables on a class, without triggering re-renders.
 
+For example, this component stores the number of clicks
+
+```jsx
+function RefButton () {
+  const clicks = useRef(0)
+
+  return (
+    <button onClick={() => (clicks.current += 1)}>
+      Clicks: {clicks.current}
+    </button>
+  )
+}
+```
+
+This is how this component would look:
+
+<RefButton />
+
+As you can see it doesn't do anything. Let's add a bit more of magic so you can
+see what happens. Below is the exact same button with a button that
+triggers a re-render:
+
+<OutsideVariableMultiple refs={1} displayType={false} />
 
 ### Why not just use a variable?
 You might wonder why not just use a simple variable as the example below:
@@ -33,7 +56,7 @@ In fact, you can notice that the clicks count from the previous example is updat
 
 <OutsideVariableMultiple refs={1} state={1} />
 
-## Attaching to DOM
+## Refs as a way to access underline DOM elements
 
 To perform imperative actions on DOM nodes, React provides a way to get a
 reference to them via refs. All you have to do is to assign a `ref` property to
@@ -67,7 +90,9 @@ node:
 
 ```jsx
 // First render: { current: undefined }
-// Rest: { current: <input /> }
+// Second render: { current: <input /> }
+// Third render: { current: <input /> }
+/// ...and so on
 console.log(inputRef)
 ```
 
@@ -88,9 +113,20 @@ function AttachingToDomExample() {
 }
 ```
 
+Here's the console output when rendering this component:
 
-<AttachingToDomExample />
+| Render | Location | Value                       |
+|:------:|:-------|:-----------------------------:|
+| 1      |  Render    | { current: undefined }  |
+|        |  useEffect | { current: <input /\> } |
+| 2      |  Render    | { current: <input /\> } |
+|        |  useEffect | { current: <input /\> } |
+| 3      |  Render    | { current: <input /\> } |
+|        |  useEffect | { current: <input /\> } |
 
+As you can see, if you access the `inputRef` inside `useEffect` then you don't
+need to worry about it being `undefined` because React will assign it
+automatically for you.
 
 ## Difference with a variable
 - Refs to access DOM nodes
