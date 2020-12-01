@@ -20,7 +20,6 @@ const SEO = ({ description, image, lang, meta, title }) => {
     `
   )
 
-  const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title
 
   return (
@@ -33,7 +32,7 @@ const SEO = ({ description, image, lang, meta, title }) => {
       meta={[
         {
           name: `description`,
-          content: metaDescription,
+          content: description,
         },
         {
           property: `og:title`,
@@ -41,7 +40,7 @@ const SEO = ({ description, image, lang, meta, title }) => {
         },
         {
           property: `og:description`,
-          content: metaDescription,
+          content: description,
         },
         {
           property: `og:type`,
@@ -69,7 +68,7 @@ const SEO = ({ description, image, lang, meta, title }) => {
         },
         {
           name: `twitter:description`,
-          content: metaDescription,
+          content: description,
         },
       ].concat(meta)}
     />

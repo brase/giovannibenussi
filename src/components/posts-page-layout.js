@@ -17,7 +17,6 @@ export default function PageTemplate(props) {
     mdx?.frontmatter?.featuredImage?.childImageSharp?.fluid?.src
   featuredImage =
     featuredImage && `https://giovannibenussi.com/${featuredImage}`
-  console.log("featuredImage", featuredImage)
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -59,6 +58,7 @@ export const query = graphql`
       id
       body
       frontmatter {
+        description
         title
         featuredImage {
           childImageSharp {
