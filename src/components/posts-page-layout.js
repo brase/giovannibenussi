@@ -15,8 +15,7 @@ export default function PageTemplate(props) {
   const siteTitle = data?.site.siteMetadata.title || `Title`
   let featuredImage =
     mdx?.frontmatter?.featuredImage?.childImageSharp?.fluid?.src
-  featuredImage =
-    featuredImage && `https://giovannibenussi.com/${featuredImage}`
+  featuredImage = featuredImage && `https://giovannibenussi.com${featuredImage}`
 
   return (
     <Layout location={location} title={siteTitle}>
