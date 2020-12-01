@@ -19,6 +19,7 @@ export default function PageTemplate(props) {
       <SEO
         title={mdx.frontmatter.title}
         description={mdx.frontmatter.description || mdx.excerpt}
+        image={mdx.frontmatter.featuredImage}
       />
       <article
         className="blog-post"
@@ -54,6 +55,13 @@ export const query = graphql`
       body
       frontmatter {
         title
+        featuredImage {
+          childImageSharp {
+            fluid(maxWidth: 800) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
       }
     }
   }
