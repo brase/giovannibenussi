@@ -19,7 +19,6 @@ const SEO = ({ description, image, lang, meta, title }) => {
       }
     `
   )
-  const featuredImage = image?.childImageSharp?.fluid?.src
 
   const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title
@@ -50,11 +49,11 @@ const SEO = ({ description, image, lang, meta, title }) => {
         },
         {
           property: `og:image`,
-          content: featuredImage,
+          content: image,
         },
         {
           property: `twitter:image`,
-          content: featuredImage,
+          content: image,
         },
         {
           name: `twitter:card`,

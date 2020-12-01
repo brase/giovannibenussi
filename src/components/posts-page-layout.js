@@ -13,13 +13,18 @@ export default function PageTemplate(props) {
   const { data, location } = props
   const { mdx } = data
   const siteTitle = data?.site.siteMetadata.title || `Title`
+  let featuredImage =
+    mdx?.frontmatter?.featuredImage?.childImageSharp?.fluid?.src
+  featuredImage =
+    featuredImage && `https://giovannibenussi.com/${featuredImage}`
+  console.log("featuredImage", featuredImage)
 
   return (
     <Layout location={location} title={siteTitle}>
       <SEO
         title={mdx.frontmatter.title}
         description={mdx.frontmatter.description || mdx.excerpt}
-        image={mdx.frontmatter.featuredImage}
+        image={featuredImage}
       />
       <article
         className="blog-post"
