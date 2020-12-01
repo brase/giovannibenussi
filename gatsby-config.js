@@ -3,7 +3,7 @@ module.exports = {
     title: `Giovanni Benussi Blog`,
     author: {
       name: `Giovanni Benussi`,
-      summary: `a frontend developer focused on craft user interfaces`,
+      summary: `a frontend developer interested in React, Open Source, and writing good plain HTML and CSS.`,
     },
     description: `A starter blog demonstrating what Gatsby can do.`,
     siteUrl: `https://www.giovannibenussi.com`,

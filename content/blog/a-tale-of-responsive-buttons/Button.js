@@ -1,7 +1,14 @@
-import React from 'react'
+import React from "react"
 
-function Button ({ className='' }) {
-  return <button className={ `border rounded bg-pink-500 text-white py-2 px-4 ${className}` }>I&apos;m just a simple button</button>
+function Button({ children, className = "", style }) {
+  return (
+    <button
+      className={`rounded bg-pink-500 text-white ${className}`}
+      style={{ lineHeight: "1", ...style }}
+    >
+      {children || "I'm just a simple button"}
+    </button>
+  )
 }
 
 export default Button
