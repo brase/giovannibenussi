@@ -8,16 +8,15 @@ import Button from './Button'
 import Experiment from './Experiment'
 import FinalButton from './FinalButton/index.js'
 
-Make _really_ responsive buttons is harder than one might think. In this post
+Make _really_ responsive buttons is not as easy as one might think. In this post
 we'll walk through the different issues that we, as developers, face when adding buttons to our websites.
 
 ## TLDR
-Here's the final version so you can copy-paste it:
+Here's the final version so you can copy-paste it and adapt to your needs:
 
 ```css
 .button {
   padding: 1rem 1%;
-  text-align: center;
 }
 
 @media (min-width: 768px) {
@@ -198,6 +197,39 @@ button {
 
 <button>I'm just a simple button</button>
 ```
+
+## Ellipsis
+
+Sometimes you don't want to span a button across multiple lines, so an
+alternative is to use ellipsis:
+
+<div style={{ display: 'flex' }}>
+  <Button className='px-4 mr-2' style={{ padding: '0.5rem 1rem ', height: '2rem', }}>I don't have ellipsis</Button>
+  <Button className='px-4 mr-2' style={{ padding: '0.5rem 1rem ', height: '2rem', width: '8rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>I have ellipsis</Button>
+</div>
+
+As you can see, the button at the right doesn't span new lines but instead the
+text that otherwise would overflow, its replaced by three dots ("..."). To
+accomplish this effect, you can use the following css:
+
+```css
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+```
+
+`white-space: nowrap` tells the browser to not create new lines if there's no
+space available to fill all the content in one line. `overflow: hidden` tells
+the browser to don't create an horizontal scrollbar when the content overflows.
+`text-overflow: ellipsis` tells the browser to display the text that overflows
+using ellipsis.
+
+Using ellipsis is a good alternative when you don't have control over the size
+of the button (e.g: dynamic text?). However, if you don't like the three dots
+that basically hide the rest of the button's content, then dynamically sized
+buttons( as we saw before) is the way to go.
 
 ## Icons
 Adding icons to your buttons is a bit tricky too. Let's add a simple svg icon

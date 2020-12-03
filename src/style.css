@@ -413,3 +413,7 @@ a:focus {
 .btn-indigo:active {
   @apply bg-indigo-400;
 }
+
+li {
+  @apply list-disc;
+}
