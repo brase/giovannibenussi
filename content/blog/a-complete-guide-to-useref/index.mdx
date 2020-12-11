@@ -5,11 +5,11 @@ description: "Hello World"
 ---
 import OutsideVariable from './Examples/OutsideVariable'
 import OutsideVariableMultiple from './Examples/OutsideVariable/multiple'
-import OutsideVariableTest from './Examples/OutsideVariable/test'
 import RefButton from "./Examples/Buttons/RefButton"
 import AttachingToDomExample from './Examples/AttachingToDomExample'
 import Chat from '../Chat'
 import Alert from '../Alert'
+import InteractiveExample from '../InteractiveExample'
 import UsePreviousExample from './Examples/UsePreviousExample'
 
 ## What's useRef
@@ -31,32 +31,34 @@ function RefButton () {
 
 This is how this component looks like:
 
-<RefButton />
+<InteractiveExample>
+  The example below is completely interactive, try clicking the "Clicks"
+  button and then click on "Re-render".
+  <OutsideVariableMultiple refs={1} displayType={false} displayTitles={false} />
+</InteractiveExample>
 
-<Alert type='info' title='Interactive Example'>
-The button below is completely interactive, try clicking the first button and then Re-render.
-</Alert>
 
-
-<OutsideVariableMultiple refs={1} displayType={false} />
-
-As you can see it doesn't do anything. Let's add a bit more of magic so you can
-see what happens. Below is the exact same button with another button that
-triggers a re-render:
+As you can see, if you click the "Clicks" button it doesn't do anything. However, after click on "Re-render", it gets updated with the number of clicks we did previously.
 
 ### Why not just use a variable?
 You might wonder why not just use a simple variable as the example below:
 
+<InteractiveExample>
 <OutsideVariableMultiple variable={1} />
+</InteractiveExample>
 
 The code works. However, the problem arises when you have multiple instances of the same component like the example below. Try clicking just one of the buttons below and then click on re-render to see the result.
 
-<OutsideVariableMultiple variable={3} />
+<InteractiveExample>
+  <OutsideVariableMultiple variable={3} />
+</InteractiveExample>
 
 As you were able to see, the clicks are not isolated. On the otherside, useRef values are completely isolated between components.
 In fact, you can notice that the clicks count from the previous example is updated if you click re-render!
 
-<OutsideVariableMultiple refs={3} />
+<InteractiveExample>
+  <OutsideVariableMultiple refs={3} />
+</InteractiveExample>
 
 ## Difference with useState
 `useState` triggers a re-render everytime it's updated and `useRef` doesn't. In the following example I added two buttons: one updates its count with `useRef` and the other one with `useState`. You'll notice that clicking on the button with `useRef` doesn't trigger a re-render and thus, the view isn't updated. It will be only noticeable when you click the button that uses `useState`.
@@ -159,7 +161,9 @@ function UsePreviousExample() {
 
 Here's the output so you can play with it:
 
-<UsePreviousExample />
+<InteractiveExample>
+  <UsePreviousExample />
+</InteractiveExample>
 
 You can notice that `previousClicks` stores the value for the previous render
 for a given variable. Here's its implementation:
@@ -175,37 +179,7 @@ function usePrevious(value) {
 ```
 
 
-## Difference with a variable
-- Use cases for refs: usePrevious
+## TODO
 - Lazy Initialization
-- Conceptually, you can think of refs as similar to instance variables in a class. Unless you're doing lazy initialization, avoid setting refs during rendering - this can lead to surprising behavior. Instead, typically you want to modify refs in event handlers and effects.
+- Describe that conceptually, you can think of refs as similar to instance variables in a class. Unless you're doing lazy initialization, avoid setting refs during rendering - this can lead to surprising behavior. Instead, typically you want to modify refs in event handlers and effects.
 - Callback refs
-
-This is my first post on my new fake blog! How exciting!
-
-I'm sure I'll write a lot more interesting things in the future.
-
-Oh, and here's a great quote from this Wikipedia on
-[salted duck eggs](https://en.wikipedia.org/wiki/Salted_duck_egg).
-
-> A salted duck egg is a Chinese preserved food product made by soaking duck
-> eggs in brine, or packing each egg in damp, salted charcoal. In Asian
-> supermarkets, these eggs are sometimes sold covered in a thick layer of salted
-> charcoal paste. The eggs may also be sold with the salted paste removed,
-> wrapped in plastic, and vacuum packed. From the salt curing process, the
-> salted duck eggs have a briny aroma, a gelatin-like egg white and a
-> firm-textured, round yolk that is bright orange-red in color.
-
-![Chinese Salty Egg](./salty_egg.jpg)
-
-You can also write code blocks here!
-
-```js
-const saltyDuckEgg = "chinese preserved food product"
-```
-
-| Number | Title                                    | Year |
-| :----- | :--------------------------------------- | ---: |
-| 1      | Harry Potter and the Philosopher’s Stone | 2001 |
-| 2      | Harry Potter and the Chamber of Secrets  | 2002 |
-| 3      | Harry Potter and the Prisoner of Azkaban | 2004 |

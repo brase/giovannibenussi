@@ -7,6 +7,7 @@
   "dependencies": {
     "@mdx-js/mdx": "^1.6.19",
     "@mdx-js/react": "^1.6.19",
+    "@use-it/interval": "^1.0.0",
     "classnames": "^2.2.6",
     "gatsby": "^2.25.1",
     "gatsby-cli": "^2.12.117",
@@ -34,7 +35,8 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1",
-    "tailwindcss": "^1.9.6",
+    "react-spring": "^8.0.27",
+    "tailwindcss": "^2.0.1",
     "typeface-merriweather": "0.0.72",
     "typeface-montserrat": "0.0.75"
   },

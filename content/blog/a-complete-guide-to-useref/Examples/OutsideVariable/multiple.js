@@ -4,12 +4,18 @@ import OutsideButton from "../Buttons/OutsideVariable"
 import StateButton from "../Buttons/StateButton"
 import RefButton from "../Buttons/RefButton"
 const xTimes = (x, callback) => [...Array(x)].map(callback)
+import c from "classnames"
 
 export default function App({ refs = 0, state = 0, variable = 0 }) {
   const [dummy, setDummy] = useState(0)
 
   return (
-    <div className={styles.namedGrid}>
+    <div
+      className={c(
+        styles.namedGrid,
+        "bg-gray-100 p-4 m-auto w-max rounded mt-4 mb-4"
+      )}
+    >
       <strong>Type</strong>
       <strong>Result</strong>
       {xTimes(variable, i => (

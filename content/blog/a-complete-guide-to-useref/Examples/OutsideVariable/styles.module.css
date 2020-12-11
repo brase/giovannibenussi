@@ -8,9 +8,13 @@
   gap: 1rem;
 }
 
-.named-grid {
+.namedGrid {
   display: grid;
-  grid-template-columns: auto 10rem;
+  grid-template-columns: 10rem;
   justify-content: center;
   gap: 1rem;
+}
+
+.twoColumns {
+  grid-template-columns: auto 10rem;
 }
