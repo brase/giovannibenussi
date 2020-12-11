@@ -149,13 +149,23 @@ h6 {
   font-size: var(--fontSize-1);
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  @apply text-indigo-500;
+.blog-post {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-indigo-500;
+  }
+}
+
+.blog-post {
+  @apply font-sans;
+}
+
+.blog-post > p {
+  @apply mt-2 mb-2;
 }
 
 h1 > a {

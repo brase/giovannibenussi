@@ -9,12 +9,13 @@ import OutsideVariableTest from './Examples/OutsideVariable/test'
 import RefButton from "./Examples/Buttons/RefButton"
 import AttachingToDomExample from './Examples/AttachingToDomExample'
 import Chat from '../Chat'
+import Alert from '../Alert'
 import UsePreviousExample from './Examples/UsePreviousExample'
 
 ## What's useRef
 `useRef` allows you to keep a mutable value within a component, similar to `useState` or instance variables on a class, without triggering re-renders.
 
-For example, this component stores the number of clicks
+For example, this component stores the number of clicks for a button:
 
 ```jsx
 function RefButton () {
@@ -28,15 +29,20 @@ function RefButton () {
 }
 ```
 
-This is how this component would look:
+This is how this component looks like:
 
 <RefButton />
+
+<Alert type='info' title='Interactive Example'>
+The button below is completely interactive, try clicking the first button and then Re-render.
+</Alert>
+
+
+<OutsideVariableMultiple refs={1} displayType={false} />
 
 As you can see it doesn't do anything. Let's add a bit more of magic so you can
 see what happens. Below is the exact same button with another button that
 triggers a re-render:
-
-<OutsideVariableMultiple refs={1} displayType={false} />
 
 ### Why not just use a variable?
 You might wonder why not just use a simple variable as the example below:
