@@ -278,6 +278,8 @@ of a ref variable. This function gets called every time the component mounts and
 unmounts.
 
 [Here's an example](https://codesandbox.io/s/callback-ref-example-lqe8w?file=/src/App.js) that shows/hides an emoji every time you click its button.
+The important thing here is the `ref` prop that we added. We use a function to log
+the provided ref:
 
 ```jsx
 function App () {
@@ -296,7 +298,7 @@ function App () {
 }
 ```
 
-Here's an interactive version of the following code (you can check the output in
+Here's an interactive version of the previous code (you can check the output in
 the console to see that I'm not lying 🙃):
 
 <InteractiveExample>

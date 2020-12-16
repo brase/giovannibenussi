@@ -39,7 +39,7 @@ function UsePreviousExample() {
       </div>
       <div className="bg-white w-full">
         <button
-          className="flex items-center text-blue-500 px-4 py-2 ml-auto border-b-4 border-gray-200 w-full"
+          className="flex items-center text-blue-500 px-4 py-2 ml-auto border-b-2 border-gray-200 w-full"
           onClick={() => setLogs([])}
         >
           <ClearIcon className="h-4 mr-2 ml-auto" /> Clear
