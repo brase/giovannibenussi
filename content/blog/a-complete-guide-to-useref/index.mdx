@@ -44,18 +44,36 @@ As you can see, if you click the "Clicks" button it doesn't do anything. However
 ### Why not just use a variable?
 You might wonder why not just use a simple variable as the example below:
 
+```jsx
+let clicks = 0;
+
+function OutsideVariableButton() {
+  return (
+    <button onClick={() => (clicks += 1)}>
+      Clicks: {clicks}
+    </button>
+  )
+}
+```
+
+And here's an interactive example for it:
+
 <InteractiveExample>
-<OutsideVariableMultiple variable={1} />
+  <OutsideVariableMultiple variable={1} />
 </InteractiveExample>
 
-The code works. However, the problem arises when you have multiple instances of the same component like the example below. Try clicking just one of the buttons below and then click on re-render to see the result.
+The button works the same way that our previous example. However, the problem arises when you have multiple instances of the same component like the example below. Try clicking just one of the buttons and then click on re-render to see the result.
 
 <InteractiveExample>
   <OutsideVariableMultiple variable={3} />
 </InteractiveExample>
 
-As you were able to see, the clicks are not isolated. On the otherside, useRef values are completely isolated between components.
-In fact, you can notice that the clicks count from the previous example is updated if you click re-render!
+As you were able to see, the clicks are not isolated. In fact, all the examples
+from this article uses the same button component, so if you click the button
+from the first example and then click on "re-render" on the second example, the count it is gonna be
+incremented! What a bug 🐛.
+
+On the other hand, `useRef` values are completely isolated between components:
 
 <InteractiveExample>
   <OutsideVariableMultiple refs={3} />
