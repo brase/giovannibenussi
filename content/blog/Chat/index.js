@@ -27,7 +27,6 @@ const sumStringLetters = name =>
 const nameColor = (name = "") => COLORS[sumStringLetters(name) % COLORS.length]
 
 const Message = ({ name, side, children, time }) => {
-  console.log("CheckIcon", CheckIcon)
   return (
     <div
       className={`rounded px-2 py-1 ${

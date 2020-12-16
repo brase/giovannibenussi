@@ -11,8 +11,9 @@ import Chat from '../Chat'
 import Alert from '../Alert'
 import InteractiveExample from '../InteractiveExample'
 import UsePreviousExample from './Examples/UsePreviousExample'
+import UseCallbackExample from './Examples/UseCallbackExample'
 
-## What's useRef
+# What's useRef
 `useRef` allows you to keep a mutable value within a component, similar to `useState` or instance variables on a class, without triggering re-renders.
 
 For example, this component stores the number of clicks for a button:
@@ -41,7 +42,7 @@ actually test it out 😄):
 
 As you can see, if you click the "Clicks" button it doesn't do anything. However, after click on "Re-render", it gets updated with the number of clicks we did previously.
 
-### Why not just use a variable?
+## Difference with a variable
 You might wonder why not just use a simple variable as the example below:
 
 ```jsx
@@ -80,11 +81,18 @@ On the other hand, `useRef` values are completely isolated between components:
 </InteractiveExample>
 
 ## Difference with useState
-`useState` triggers a re-render everytime it's updated and `useRef` doesn't. In the following example I added two buttons: one updates its count with `useRef` and the other one with `useState`. You'll notice that clicking on the button with `useRef` doesn't trigger a re-render and thus, the view isn't updated. It will be only noticeable when you click the button that uses `useState`.
+> The main difference between useState and useRef, is that useState triggers a
+> re-render and useRef doesn't.
 
-<OutsideVariableMultiple refs={1} state={1} />
+In the following example I added two buttons: one that updates its count with `useRef` and the other one with `useState`. I added some labels so you can identify them easily.
 
-## Refs as a way to access underline DOM elements
+<InteractiveExample>
+  <OutsideVariableMultiple refs={1} state={1} />
+</InteractiveExample>
+
+You'll notice that clicking on the button with `useRef` doesn't trigger a re-render and thus, the view isn't updated. On the other side, when you click on the button that uses `useState`, it will update its clicks count immediately.
+
+# Refs as a way to access underline DOM elements
 
 To perform imperative actions on DOM nodes, React provides a way to get a
 reference to them via refs. All you have to do is to assign a `ref` property to
@@ -98,7 +106,7 @@ function CustomInput() {
 }
 ```
 
-The way to get a DOM reference using refs works (informally 😅) is as follows:
+The way to get a DOM reference using refs works (informally 😅) as follows:
 
 <Chat
   messages={{
@@ -112,8 +120,8 @@ The way to get a DOM reference using refs works (informally 😅) is as follows:
 }
  />
 
-On the first render inputRef's value will be `{ current: null }` and in the
-following renders will have its `current` property assigned to the specified DOM
+On the first render, `inputRef`'s value will be `{ current: null }` and in the
+following renders it will have its `current` property assigned to the specified DOM
 node:
 
 ```jsx
@@ -166,6 +174,7 @@ action first:
 ```jsx
 function UsePreviousExample() {
   const [clicks, setClicks] = useState(0)
+  // usePrevious is the important part here ✨
   const previousClicks = usePrevious(clicks)
 
   return (
@@ -184,7 +193,7 @@ Here's the output so you can play with it:
   <UsePreviousExample />
 </InteractiveExample>
 
-You can notice that `previousClicks` stores the value for the previous render
+You can notice that the `previousClicks` variable stores the value for the previous render
 for a given variable. Here's its implementation:
 
 ```jsx
@@ -196,6 +205,107 @@ function usePrevious(value) {
   return ref.current
 }
 ```
+
+Let's analyze how it works.
+
+Let's simulate what happens on the first render. We can remove the call to
+`useEffect` since it doesn't affect the return value on the first render:
+
+```jsx
+// First render
+function usePrevious(value) {
+  const ref = useRef()
+  return ref.current
+}
+```
+
+On the first render it is called with a value of `0`:
+
+```jsx
+// First render
+const previousClicks = usePrevious(0)
+```
+
+In this case, `usePrevious` will return `undefined`:
+
+```jsx
+// First render
+function usePrevious(value) {
+  const ref = useRef()
+  return ref.current // No assignment, so it's undefined
+}
+```
+
+After increase the value for count, here's how the `usePrevious` call will look:
+
+```jsx
+// Second render
+const previousClicks = usePrevious(1)
+```
+
+Since `usePrevious` is called again, its effect needs to run:
+
+```jsx
+useEffect(() => {
+  ref.current = 0
+})
+```
+
+After this, the `usePrevious` function is called again:
+
+```jsx
+// First render
+function usePrevious(value) {
+  const ref = useRef()
+  return ref.current // 0
+}
+```
+
+And so on. Here's the value for each render for both variables:
+
+| Render | clicks | previousClicks |
+|:------:|:-------|:-----------------------------:|
+| 1      |  0    | undefined |
+| 2      |  1    | 0 |
+| 3      |  2    | 1 |
+| 4      |  3    | 2 |
+
+
+# Callback Refs
+Callback Refs are a different way to set refs. It gives you a fine-grain control
+over when refs are attached and detached because you provide a function instead
+of a ref variable. This function gets called every time the component mounts and
+unmounts.
+
+[Here's an example](https://codesandbox.io/s/callback-ref-example-lqe8w?file=/src/App.js) that shows/hides an emoji every time you click its button.
+
+```jsx
+function App () {
+  const [rerenders, setRerenders] = useState(0);
+
+  return (
+    <div>
+      <button onClick={() => setShow(!show)}>
+        {show ? "Hide" : "Show"}
+      </button>
+      <span ref={args => console.log("callback:", args)}>
+        {show ? "👋" : "-"}
+      </span>
+    </div>
+  );
+}
+```
+
+Here's an interactive version of the following code (you can check the output in
+the console to see that I'm not lying 🙃):
+
+<InteractiveExample>
+  <UseCallbackExample />
+</InteractiveExample>
+
+
+
+
 
 
 ## TODO

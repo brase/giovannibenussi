@@ -36,7 +36,7 @@ export default function App({
       ))}
       {xTimes(state, i => (
         <React.Fragment key={i}>
-          {displayType && <span>state</span>}}
+          {displayType && <span>state</span>}
           <StateButton />
         </React.Fragment>
       ))}

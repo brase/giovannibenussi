@@ -149,15 +149,13 @@ h6 {
   font-size: var(--fontSize-1);
 }
 
-.blog-post {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply text-indigo-500;
-  }
+.blog-post > h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-sans;
 }
 
 .blog-post {
@@ -365,11 +363,11 @@ a:focus {
 }
 
 .btn-blue {
-  @apply text-blue-500 bg-blue-200;
+  @apply text-white bg-blue-500;
 }
 
 .btn-blue:hover {
-  @apply text-white bg-blue-500;
+  @apply text-white bg-blue-700;
 }
 
 .btn-blue:active {
