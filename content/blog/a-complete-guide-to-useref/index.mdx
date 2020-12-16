@@ -1,5 +1,5 @@
 ---
-title: A Complete Guide to useRef
+title: A Complete Guide to Refs
 date: "2020-11-03T22:12:03.284Z"
 description: "Hello World"
 ---
@@ -283,6 +283,8 @@ The important thing here is the `ref` prop that we added. We use a function to l
 the provided ref:
 
 ```jsx
+const callback = (args) => console.log("callback:", args)
+
 function App () {
   const [rerenders, setRerenders] = useState(0);
 
@@ -291,9 +293,7 @@ function App () {
       <button onClick={() => setShow(!show)}>
         {show ? "Hide" : "Show"}
       </button>
-      <span ref={args => console.log("callback:", args)}>
-        {show ? "👋" : "-"}
-      </span>
+      {show && <span ref={callback}>👋</span>}
     </div>
   );
 }
@@ -305,6 +305,11 @@ the console to see that I'm not lying 🙃):
 <InteractiveExample>
   <UseCallbackExample />
 </InteractiveExample>
+
+*Note: If you use callback refs as inline functions, it will be called
+twice: one with `null` and another one with the DOM element.
+This is because React needs to clear the previous ref every time the function is
+created. A workaround for this is to use a class method.*
 
 # (Legacy) String Refs
 <Warning>
@@ -343,6 +348,9 @@ Here's the value for `this.refs` across renders:
 
 As you can see, on the first render `this.refs.exampleRef` will be undefined and
 on the following renders it will point out to the specified DOM node.
+
+# Conclusion
+
 
 ## TODO
 - Lazy Initialization
