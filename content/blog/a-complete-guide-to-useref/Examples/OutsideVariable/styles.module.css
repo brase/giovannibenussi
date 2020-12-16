@@ -10,6 +10,7 @@
 
 .namedGrid {
   display: grid;
+  align-items: center;
   grid-template-columns: 10rem;
   justify-content: center;
   gap: 1rem;
