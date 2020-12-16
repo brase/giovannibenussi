@@ -2,9 +2,25 @@ import React, { useState } from "react"
 import InformationCircle from "./information-circle.inline.svg"
 import { useSpring, animated } from "react-spring"
 import useInterval from "@use-it/interval"
+import c from "classnames"
+import ExclamationCircle from "./exclamation-circle.inline.svg"
 
 const icons = {
   info: InformationCircle,
+  warning: ExclamationCircle,
+}
+
+const classNames = {
+  info: {
+    wrapper: "bg-blue-200",
+    title: "text-indigo-700",
+    body: "text-blue-900",
+  },
+  warning: {
+    wrapper: "bg-yellow-100",
+    title: "text-yellow-500",
+    body: "text-yellow-900",
+  },
 }
 
 function Alert({ children, title = "", type }) {
@@ -17,10 +33,11 @@ function Alert({ children, title = "", type }) {
     top: top ? -6 : -1,
   })
   const Icon = icons[type]
+  const className = classNames[type] || {}
 
   return (
-    <div className="bg-blue-200 p-4 rounded font-sans mt-2 mb-2">
-      <h2 className="font-bold text-base m-0 mb-2 text-indigo-700">
+    <div className={c(className.wrapper, "p-4 rounded font-sans mt-2 mb-2")}>
+      <h2 className={c(className.title, "font-bold text-base m-0 mb-2")}>
         {Icon && (
           <animated.div style={props} className="inline relative">
             <Icon className="h-4 inline mr-1" />
@@ -28,7 +45,7 @@ function Alert({ children, title = "", type }) {
         )}
         {title}
       </h2>
-      <p className="m-0 text-blue-900">{children}</p>
+      <p className={c(className.body, "m-0")}>{children}</p>
     </div>
   )
 }

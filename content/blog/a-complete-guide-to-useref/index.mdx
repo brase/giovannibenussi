@@ -10,6 +10,7 @@ import AttachingToDomExample from './Examples/AttachingToDomExample'
 import Chat from '../Chat'
 import Alert from '../Alert'
 import InteractiveExample from '../InteractiveExample'
+import Warning from '../Warning'
 import UsePreviousExample from './Examples/UsePreviousExample'
 import UseCallbackExample from './Examples/UseCallbackExample'
 
@@ -305,12 +306,43 @@ the console to see that I'm not lying 🙃):
   <UseCallbackExample />
 </InteractiveExample>
 
+# (Legacy) String Refs
+<Warning>
 
+[String refs](https://reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs) are a legacy feature and they are likely to be removed in future React versions.
+</Warning>
 
+The way it works is that you provide a string as a ref value like `ref="exampleRef"` and it automatically gets assigned to `this.refs`.
 
+*Note: String refs can only be used with class components.*
 
+Here's an usage example:
+
+```jsx
+export default class App extends React.Component {
+  render() {
+    console.log(this.refs);
+
+    return (
+      <div ref="exampleRef">
+        <button onClick={() => this.setState({ dummy: 0 })}>Re-render</button>
+      </div>
+    );
+  }
+}
+```
+
+Here's the value for `this.refs` across renders:
+
+| Render | this.refs |
+|:------:|:------------|
+| 1      |  `{}`                             |
+| 2      |  `{ exampleRef: <div>...</div> }` |
+| 3      |  `{ exampleRef: <div>...</div> }` |
+| 4      |  `{ exampleRef: <div>...</div> }` |
+
+As you can see, on the first render `this.refs.exampleRef` will be undefined and
+on the following renders it will point out to the specified DOM node.
 
 ## TODO
 - Lazy Initialization
-- Describe that conceptually, you can think of refs as similar to instance variables in a class. Unless you're doing lazy initialization, avoid setting refs during rendering - this can lead to surprising behavior. Instead, typically you want to modify refs in event handlers and effects.
-- Callback refs
