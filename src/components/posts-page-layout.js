@@ -20,16 +20,14 @@ export default function PageTemplate(props) {
 
   return (
     <Layout location={location} title={siteTitle}>
-      {process.env.ENABLE_GOOGLE_ANALYTICS && (
-        <Helmet>
-          <script src="https://www.googletagmanager.com/gtag/js?id=G-KM87KM1KX1"></script>
-          <script>{`
+      <Helmet>
+        <script src="https://www.googletagmanager.com/gtag/js?id=G-KM87KM1KX1"></script>
+        <script>{`
           window.dataLayer = window.dataLayer || []; function gtag()
           {dataLayer.push(arguments)}
           gtag('js', new Date()); gtag('config', 'G-KM87KM1KX1');
         `}</script>
-        </Helmet>
-      )}
+      </Helmet>
       <SEO
         title={mdx.frontmatter.title}
         description={mdx.frontmatter.description || mdx.excerpt}
