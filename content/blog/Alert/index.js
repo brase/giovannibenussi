@@ -12,12 +12,12 @@ const icons = {
 
 const classNames = {
   info: {
-    wrapper: "bg-blue-200",
+    wrapper: "bg-blue-200 border-indigo-500",
     title: "text-indigo-700",
     body: "text-blue-900",
   },
   warning: {
-    wrapper: "bg-yellow-100",
+    wrapper: "bg-yellow-100 border-yellow-700",
     title: "text-yellow-500",
     body: "text-yellow-900",
   },
@@ -36,7 +36,12 @@ function Alert({ children, title = "", type }) {
   const className = classNames[type] || {}
 
   return (
-    <div className={c(className.wrapper, "p-4 rounded font-sans mt-2 mb-2")}>
+    <div
+      className={c(
+        className.wrapper,
+        "border-l-4 p-4 rounded font-sans mt-2 mb-2"
+      )}
+    >
       <h2 className={c(className.title, "font-bold text-base m-0 mb-2")}>
         {Icon && (
           <animated.div style={props} className="inline relative">

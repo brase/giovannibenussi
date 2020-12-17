@@ -6,7 +6,7 @@ const logsInitialState = [FILLED_LOG]
 
 const Log = React.forwardRef(({ empty, value }, ref) => (
   <div className="px-4 py-2" ref={ref}>
-    {">>"} {!empty && <span className="text-blue-500">args: </span>}
+    {">>"} {!empty && <span className="text-blue-500">ref: </span>}
     {value === "undefined" || empty ? (
       value
     ) : (
@@ -32,7 +32,7 @@ function UsePreviousExample() {
       </button>
       <div className="h-10 text-center">
         {show && (
-          <span className="text-4xl" ref={args => console.log("args:", args)}>
+          <span className="text-4xl" ref={ref => console.log("ref:", ref)}>
             👋
           </span>
         )}

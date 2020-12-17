@@ -283,7 +283,7 @@ The important thing here is the `ref` prop that we added. We use a function to l
 the provided ref:
 
 ```jsx
-const callback = (args) => console.log("callback:", args)
+const callback = (ref) => console.log("callback:", ref)
 
 function App () {
   const [rerenders, setRerenders] = useState(0);

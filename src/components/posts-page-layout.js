@@ -6,6 +6,7 @@ import { Link } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Bio from "../components/bio"
+import { Helmet } from "react-helmet"
 
 const shortcodes = { Link } // Provide common components here
 
@@ -19,6 +20,14 @@ export default function PageTemplate(props) {
 
   return (
     <Layout location={location} title={siteTitle}>
+      <Helmet>
+        <script src="https://www.googletagmanager.com/gtag/js?id=G-KM87KM1KX1"></script>
+        <script>{`
+          window.dataLayer = window.dataLayer || []; function gtag()
+          {dataLayer.push(arguments)}
+          gtag('js', new Date()); gtag('config', 'G-KM87KM1KX1');
+        `}</script>
+      </Helmet>
       <SEO
         title={mdx.frontmatter.title}
         description={mdx.frontmatter.description || mdx.excerpt}
